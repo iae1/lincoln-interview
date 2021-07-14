@@ -112,9 +112,9 @@ exports.uploadMultipleFiles = async (req, res) => {
 
 
 exports.downloadFile = (req, res) => {
-    Donation.findAll({attributes: ['donor_Id', 'donor_name', 'dono_email', 'donor_gender', 'donor_address', 'donation_amount']}).then(objects => {
+    Donation.findAll({attributes: ['donor_id', 'donor_name', 'donor_email', 'donor_gender', 'donor_address', 'donation_amount']}).then(objects => {
         const jsonDonations = JSON.parse(JSON.stringify(objects));
-        const csvFields = ['donor_Id', 'donor_name', 'dono_email', 'donor_gender', 'donor_address', 'donation_amount'];
+        const csvFields = ['donor_id', 'donor_name', 'donor_email', 'donor_gender', 'donor_address', 'donation_amount'];
         const json2csvParser = new Json2csvParser({ csvFields });
         const csvData = json2csvParser.parse(jsonDonations);
 
