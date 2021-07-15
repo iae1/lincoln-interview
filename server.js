@@ -22,7 +22,7 @@ app.use((error, req, res, next) => {
 });
 
 // Create a Server
-const server = app.listen(3000, function () {
+const server = app.listen(process.env.PORT || 3000, function () {
   let host = server.address().address
   let port = server.address().port
  
