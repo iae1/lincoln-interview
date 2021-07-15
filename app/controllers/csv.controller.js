@@ -67,7 +67,7 @@ exports.uploadFile = (req, res) => {
 
                     let mailOptions = {
                         from: 'isaeaston@gmail.com', // TODO: email sender
-                        to: 'isaaceastonwebdev@yahoo.com', // TODO: email receiver
+                        to: 'isaaceastonwebdev@gmail.com', // TODO: email receiver
                         subject: 'New Donations Upload',
                         text: `- ${emailBody.newUploads} new donation records were added\n- We have received $${emailBody.totalValOfNewUploads}\n- ${emailBody.percentAnon} percent of the donations were made anonymously`
                     };
