@@ -19,6 +19,7 @@ const csv = require('fast-csv');
 exports.uploadFile = (req, res) => {
     try{
         let donations = [];
+        console.log('HITT')
         fs.createReadStream(__basedir + "/uploads/" + req.file.filename)
             .pipe(csv.parse({ headers: true }))
             .on('error', error => {

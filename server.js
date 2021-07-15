@@ -18,7 +18,7 @@ app.use('/', router);
 
 app.use(express.static(__basedir + "/public"));
 app.use((error, req, res, next) => {
-  console.log('This is the rejected field ->', error.field);
+  console.log(error);
 });
 
 // Create a Server
