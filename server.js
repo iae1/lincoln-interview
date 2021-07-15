@@ -13,14 +13,16 @@ db.sequelize.sync({force: true}).then(() => {
 
 let router = require('./app/routers/excel.router.js');
 app.use(express.static('resources'));
+
 app.use('/', router);   
 
-// app.use((error, req, res, next) => {
-//   console.log('This is the rejected field ->', error.field);
-// });
+app.use(express.static(__basedir + "/public"));
+app.use((error, req, res, next) => {
+  console.log('This is the rejected field ->', error.field);
+});
 
 // Create a Server
-const server = app.listen(8080, function () {
+const server = app.listen(3000, function () {
   let host = server.address().address
   let port = server.address().port
  

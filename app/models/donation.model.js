@@ -24,9 +24,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.TEXT
         },
         donation_amount: {
-            type: Sequelize.DECIMAL(10, 2), 
-            'allowNull': true, 
-            get() { return parseFloat(this.getDataValue('quantity')); }
+            type: Sequelize.DECIMAL, 
+            allowNull: false,
+            validate: {
+              notEmpty: true
+            }
         }
     })
 	
