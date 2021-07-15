@@ -5,7 +5,7 @@ import { Dropdown, Table, Card } from 'react-bootstrap'
 export default function Donations () {
   const [seeOnlyKnownDonations, getOnlyKnownDonations] = useState(false)
   const [donationsList, setDonationsList] = useState([])
-  const [totalDonations, setTotalDonations] = useState([])
+  const [totalDonations, setTotalDonations] = useState(0)
 
   useEffect(async () => {
     try {
@@ -16,7 +16,7 @@ export default function Donations () {
         donations.forEach(({donation_amount}) => {
           donationsAmounts.push(parseFloat(donation_amount))
         })
-        setTotalDonations(donationsAmounts.reduce((acc, cv) => acc+cv).toFixed(2))
+        setTotalDonations(parseFloat(donationsAmounts.reduce((acc, cv) => acc+cv)).toFixed(2))
       } else {
         const { data: donations } = await axios.get('/api/donations')
         setDonationsList(donations)
@@ -24,7 +24,7 @@ export default function Donations () {
         donations.forEach(({donation_amount}) => {
           donationsAmounts.push(parseFloat(donation_amount))
         })
-        setTotalDonations(donationsAmounts.reduce((acc, cv) => acc+cv))
+        setTotalDonations(parseFloat(donationsAmounts.reduce((acc, cv) => acc+cv)).toFixed(2))
       } 
     } catch (error) {
       console.log(error)
