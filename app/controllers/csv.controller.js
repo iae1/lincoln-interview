@@ -53,9 +53,9 @@ exports.uploadFile = (req, res) => {
 
                     let transporter = nodemailer.createTransport({
                         service: 'gmail',
-                        host: 'smtp.gmail.com',
-                        port: 465,
-                        secure: true,
+                        // host: 'smtp.gmail.com',
+                        // port: 465,
+                        // secure: true,
                         auth: {
                             user: process.env.EMAIL, 
                             pass: process.env.PASSWORD
@@ -64,7 +64,7 @@ exports.uploadFile = (req, res) => {
 
                     let mailOptions = {
                         from: 'isaeaston@gmail.com', // TODO: email sender
-                        to: 'isaaceastonwebdev@gmail.com', // TODO: email receiver
+                        to: 'isaaceastonwebdev@yahoo.com', // TODO: email receiver
                         subject: 'New Donations Upload',
                         text: `- ${emailBody.newUploads} new donation records were added\n- We have received $${emailBody.totalValOfNewUploads}\n- ${emailBody.percentAnon} percent of the donations were made anonymously`
                     };
