@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
 require('dotenv').config()
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('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')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const db = require('../config/db.config.js');
 const Donation = db.Donation;
 
@@ -37,22 +37,22 @@ exports.uploadFile = (req, res) => {
                 console.log('end!!!')
                 Donation.bulkCreate(donations).then((data) => {
 
-                    // // Initialize email body
-                    // const emailBody = {
-                    //   newUploads: data.length,
-                    // }
+                    // Initialize email body
+                    const emailBody = {
+                      newUploads: data.length,
+                    }
 
-                    // // Total Value of New Uploads/Count Anon Donations
-                    // let donationsAmounts = []
-                    // let numAnonDonations = 0
-                    // data.forEach(({dataValues}) => {
-                    //   donationsAmounts.push(parseFloat(dataValues.donation_amount))
-                    //   if (!dataValues.donor_name.length) {numAnonDonations++}
-                    // })
-                    // emailBody.totalValOfNewUploads = donationsAmounts.reduce((acc, cv) => acc+cv).toFixed(2)
+                    // Total Value of New Uploads/Count Anon Donations
+                    let donationsAmounts = []
+                    let numAnonDonations = 0
+                    data.forEach(({dataValues}) => {
+                      donationsAmounts.push(parseFloat(dataValues.donation_amount))
+                      if (!dataValues.donor_name.length) {numAnonDonations++}
+                    })
+                    emailBody.totalValOfNewUploads = donationsAmounts.reduce((acc, cv) => acc+cv).toFixed(2)
 
-                    // // percentAnon
-                    // emailBody.percentAnon = parseInt((numAnonDonations/data.length)*100,10)
+                    // percentAnon
+                    emailBody.percentAnon = parseInt((numAnonDonations/data.length)*100,10)
 
                     // let transporter = nodemailer.createTransport({
                     //     service: 'gmail',
@@ -82,9 +82,9 @@ exports.uploadFile = (req, res) => {
                     const msg = {
                       to: 'isaaceastonwebdev@gmail.com', // Change to your recipient
                       from: 'isaeaston@gmail.com', // Change to your verified sender
-                      subject: 'Sending with SendGrid is Fun',
+                      subject: 'New Donations Uploaded',
                       text: 'and easy to do anywhere, even with Node.js',
-                      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                      html: `<h4>- ${emailBody.newUploads} new donation records were added</h4><h4>- We have received $${emailBody.totalValOfNewUploads}</h4><h4>- ${emailBody.percentAnon} percent of the donations were made anonymously</h4>`,
                     }
                     sgMail
                       .send(msg)
