@@ -24,7 +24,6 @@ export default function Upload () {
             display: 'block', 
           }
 
-          console.log(responseDiv.style.display)
           ReactDOM.render(<div style={{
             backgroundColor: '#e6e6ff',
             border: "solid 1px black",
