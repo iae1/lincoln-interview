@@ -2,9 +2,11 @@ const stream = require('stream');
 const await = require('await')
 const fs = require('fs');
 const path = require('path');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
 require('dotenv').config()
-
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const db = require('../config/db.config.js');
 const Donation = db.Donation;
 
@@ -32,6 +34,7 @@ exports.uploadFile = (req, res) => {
             })
             .on('end', () => {
                 // Save donations to MySQL/PostgreSQL database
+                console.log('end!!!')
                 Donation.bulkCreate(donations).then((data) => {
 
                     // Initialize email body
@@ -53,6 +56,9 @@ exports.uploadFile = (req, res) => {
 
                     let transporter = nodemailer.createTransport({
                         service: 'gmail',
+                        // host: 'smtp.gmail.com',
+                        // port: 465,
+                        // secure: true,
                         auth: {
                             user: process.env.EMAIL, 
                             pass: process.env.PASSWORD
@@ -72,6 +78,22 @@ exports.uploadFile = (req, res) => {
                         }
                         return console.log('Email sent!!!');
                     });
+
+                    // const msg = {
+                    //   to: 'isaaceastonwebdev@gmail.com', // Change to your recipient
+                    //   from: 'lincoln_interview@heroku.com', // Change to your verified sender
+                    //   subject: 'Sending with SendGrid is Fun',
+                    //   text: 'and easy to do anywhere, even with Node.js',
+                    //   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+                    // }
+                    // sgMail
+                    //   .send(msg)
+                    //   .then(() => {
+                    //     console.log('Email sent')
+                    //   })
+                    //   .catch((error) => {
+                    //     console.error(error)
+                    //   })
 
                     const result = {
                         status: "ok",
