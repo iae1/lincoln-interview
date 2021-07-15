@@ -22,9 +22,17 @@ app.use((error, req, res, next) => {
 });
 
 // Create a Server
-const server = app.listen(process.env.PORT || 3000, function () {
-  let host = server.address().address
-  let port = server.address().port
- 
-  console.log("App listening at http://%s:%s", host, port); 
-})
+const init = async () => {
+  try {
+    await db.sequelize.sync()
+    const server = app.listen(process.env.PORT || 3000, function () {
+      let host = server.address().address
+      let port = server.address().port
+     
+      console.log("App listening at http://%s:%s", host, port); 
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+init()
