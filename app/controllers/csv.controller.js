@@ -54,31 +54,6 @@ exports.uploadFile = (req, res) => {
                     // percentAnon
                     emailBody.percentAnon = parseInt((numAnonDonations/data.length)*100,10)
 
-                    // let transporter = nodemailer.createTransport({
-                    //     service: 'gmail',
-                    //     // host: 'smtp.gmail.com',
-                    //     // port: 465,
-                    //     // secure: true,
-                    //     auth: {
-                    //         user: process.env.EMAIL, 
-                    //         pass: process.env.PASSWORD
-                    //     }
-                    // });
-
-                    // let mailOptions = {
-                    //     from: 'isaeaston@gmail.com', // TODO: email sender
-                    //     to: 'isaaceastonwebdev@gmail.com', // TODO: email receiver
-                    //     subject: 'New Donations Upload',
-                    //     text: `- ${emailBody.newUploads} new donation records were added\n- We have received $${emailBody.totalValOfNewUploads}\n- ${emailBody.percentAnon} percent of the donations were made anonymously`
-                    // };
-
-                    // transporter.sendMail(mailOptions, (err, data) => {
-                    //     if (err) {
-                    //         return console.log('Error occurs');
-                    //     }
-                    //     return console.log('Email sent!!!');
-                    // });
-
                     const msg = {
                       to: 'isaaceastonwebdev@gmail.com', // Change to your recipient
                       from: 'isaeaston@gmail.com', // Change to your verified sender
