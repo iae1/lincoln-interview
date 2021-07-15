@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
 require('dotenv').config()
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey('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')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const db = require('../config/db.config.js');
 const Donation = db.Donation;
 
